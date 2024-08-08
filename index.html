@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Time Widget</title>
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+        body {
+            font-family: "Nunito", sans-serif;  
+
+        }
+
+        #time-widget { /* Style the main container */
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .location-name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .emoji {
+            margin-right: 5px;
+        }
+
+        /* Light Mode (Default) */
+        body {
+            color: #37352f;
+            background-color: #fff;
+        }
+
+        #time-widget {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1e1e1e;
+                color: #d1d1d1;
+            }
+
+            #time-widget {
+                box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+            }
+
+            #time-widget > div {
+                color: #949494;
+            }
+        }
+     </style>
+</head>
+<body>
+
+    <div id="time-widget"> 
+        <div><span class="emoji">🗽</span><span class="location-name">New York:</span> <span id="nycTime"></span></div>
+        <div><span class="emoji">🤠</span><span class="location-name">Texas:</span> <span id="txTime"></span></div>
+        <div><span class="emoji">🇳🇱</span><span class="location-name">Netherlands:</span> <span id="nlTime"></span></div>
+        <div><span class="emoji">🇳🇴</span><span class="location-name">Norway:</span> <span id="norwayTime"></span></div>
+        <div><span class="emoji">🌴</span><span class="location-name">California:</span> <span id="caTime"></span></div>
+    </div>
+
+    <script>
+        function updateTimes() {
+            const now = new Date();
+            const options = { timeZoneName: 'short', hour12: true }; // Added hour12: true for AM/PM
+
+            document.getElementById('nycTime').innerText = now.toLocaleTimeString('en-US', {...options, timeZone: 'America/New_York' });
+            document.getElementById('txTime').innerText = now.toLocaleTimeString('en-US', {...options, timeZone: 'America/Chicago' });
+            document.getElementById('nlTime').innerText = now.toLocaleTimeString('en-US', {...options, timeZone: 'Europe/Amsterdam' });
+            document.getElementById('norwayTime').innerText = now.toLocaleTimeString('en-US', {...options, timeZone: 'Europe/Oslo' });
+            document.getElementById('caTime').innerText = now.toLocaleTimeString('en-US', {...options, timeZone: 'America/Los_Angeles' });
+        }
+
+        setInterval(updateTimes, 1000); // Update every second
+        updateTimes(); // Initial update
+    </script>
+
+</body>
+</html>
